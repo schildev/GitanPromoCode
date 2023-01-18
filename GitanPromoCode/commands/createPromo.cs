@@ -1,4 +1,4 @@
-﻿using Rocket.API;
+using Rocket.API;
 using Rocket.Unturned.Chat;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ namespace GitanPromoCode.commands
     public enum commandArguments {
         Create,
         Delete,
+        Show,
         Item,
         Xp,
         Vehicle,
@@ -24,7 +25,7 @@ namespace GitanPromoCode.commands
 
         public string Help => "Create a promo code for your serv, if you don't give a promocode value a random one will be generated, you have to set the rewards after creation";
 
-        public string Syntax => "/promoManage <create|delete> <code|null> <unique|null>";
+        public string Syntax => "/promoManage <create|delete|show> <code|null|null> <unique|null|null>";
 
         public List<string> Aliases => new List<string>();
 
@@ -70,6 +71,14 @@ namespace GitanPromoCode.commands
                         string del = gitanPromoCode.Instance.promoSaveService.RemovePromoCode(code);
                         if (del != null) UnturnedChat.Say(caller, gitanPromoCode.Instance.Translate("delPromoCodeSucceed"), UnityEngine.Color.green);
                         else UnturnedChat.Say(caller, gitanPromoCode.Instance.Translate("delPromoCodeNotSucceed"), UnityEngine.Color.red);
+                        break;
+                    case commandArguments.Show:
+                        List < promoModel > codes = gitanPromoCode.Instance.promoSaveService.getCodes();
+                        if (codes == null) {UnturnedChat.Say(caller, gitanPromoCode.Instance.Translate("NoCodes")); break; }
+                        foreach (promoModel promo in codes)
+                        {
+                            UnturnedChat.Say(caller, $"{promo.code} -- {promo.items.Count} rewards");
+                        }
                         break;
                 }
             } else UnturnedChat.Say(caller, gitanPromoCode.Instance.Translate("argumentNotFound"), UnityEngine.Color.red);
