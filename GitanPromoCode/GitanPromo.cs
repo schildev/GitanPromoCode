@@ -1,4 +1,4 @@
-﻿using Rocket.API;
+using Rocket.API;
 using Rocket.API.Collections;
 using Rocket.Core.Logging;
 using Rocket.Core.Plugins;
@@ -132,7 +132,8 @@ namespace GitanPromoCode
             {"incorrectXpAmmount", "The quantity of XP you gived is incorrect !" },
             {"UiTitle", "Reedeem promo code" },
             {"buttonText", "Reedeem Code" },
-            {"enableUconomyException", "You have to enable Uconomy in the configuration !" }
+            {"enableUconomyException", "You have to enable Uconomy in the configuration !" },
+            {"NoCodes", "You haven't create any code" }
         };
     }
 }
